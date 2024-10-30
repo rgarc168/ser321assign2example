@@ -313,7 +313,7 @@ class WebServer {
             // Getting the query string
             query_pairs = splitQuery(request.replace("sentence?", ""));
             // Checking if the url has two parameters = list and order
-            if (query_pairs.containsKey("str=") && query_pairs.containsKey("str1=")) {
+            if (query_pairs.containsKey("str") && query_pairs.containsKey("str1")) {
               // Get values to integers
               String str = query_pairs.get("str");
               String str1 = query_pairs.get("str1");
@@ -331,25 +331,25 @@ class WebServer {
               builder.append("HTTP/1.1 400 Bad Request\n");
               builder.append("Content-Type: text/html; charset=utf-8\n");
               builder.append("\n");
-              builder.append("Error: There is no string values.");
+              builder.append("Error: parameters are incorrect.");
             }
           } catch(Exception e) {
+
             builder.append("HTTP/1.1 505 HTTP Version Not Supported");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
             builder.append("Error: the URL is not formatted incorrectly or mispelled.");
           }
           
-        }// Second Request
+        }
+        // Second Request
         else if(request.contains("areaTriangle?")) {
-          // This multiplies two numbers, there is NO error handling, so when
-          // wrong data is given this just crashes
-          
+          // This multiplies two numbers, there is NO error handling, so when wrong data is given this just crashes
           // Checking if there are parameters of num1 and num2
           if(request.contains("base=") && request.contains("height=")) {
             Map<String, String> query_pairs = new LinkedHashMap<String, String>();
             // extract path parameters
-            query_pairs = splitQuery(request.replace("area_of_triangle?", ""));
+            query_pairs = splitQuery(request.replace("areaTriangle?", ""));
 
             // Check if the parameters are integers
             // Creating a method to check if the string is an double
@@ -358,13 +358,13 @@ class WebServer {
               Double base = Double.parseDouble(query_pairs.get("base"));
               Double height = Double.parseDouble(query_pairs.get("height"));
               // Calculate the area of the triangle
-              Double result = (0.5) * base * height;
+              Double result1 = (0.5) * base * height;
 
               // Response OK code
               builder.append("HTTP/1.1 200 OK\n");
               builder.append("Content-Type: text/html; charset=utf-8\n");
               builder.append("\n");
-              builder.append("Result is: " + result);
+              builder.append("Result is: " + result1);
             }
             // Include error handling here with a correct error code and
             // a response that makes sense
